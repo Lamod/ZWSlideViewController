@@ -96,11 +96,11 @@
 
 #pragma mark - ZWSPagingViewDataSource
 
-- (NSUInteger)numberOfPagesInPagingView:(ZWSPagingView *)pagingView {
+- (NSInteger)numberOfPagesInPagingView:(ZWSPagingView *)pagingView {
     return [[self menuTitles] count];
 }
 
-- (ZWSPage *)pagingView:(ZWSPagingView *)pagingView pageForIndex:(NSUInteger)index {
+- (ZWSPage *)pagingView:(ZWSPagingView *)pagingView pageForIndex:(NSInteger)index {
     ZWSPage *page = [pagingView dequeueReusablePage];
     if (!page) {
         page = [ZWSPage new];
@@ -134,7 +134,7 @@
 
 #pragma mark - ZWSSectionBarDelegate
 
-- (void)sectionBar:(ZWSSectionBar *)sectionBar didSelectAtInedx:(NSUInteger)index
+- (void)sectionBar:(ZWSSectionBar *)sectionBar didSelectAtInedx:(NSInteger)index
 {
     [_pagingView moveToPageAtFloatIndex:index animated:YES];
 }

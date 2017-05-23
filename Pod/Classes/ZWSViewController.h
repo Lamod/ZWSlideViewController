@@ -9,6 +9,8 @@
 #import "ZWSPagingView.h"
 #import "ZWSSectionBar.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ZWSViewController : UIViewController <ZWSPagingViewDataSource, ZWSPagingViewDelegate, ZWSSectionBarDelegate>
 
 @property (nonatomic, readonly) ZWSPagingView *pagingView;
@@ -21,7 +23,7 @@
 
 @property(nonatomic, assign) CGFloat menuHeight;
 
-@property(nonatomic, copy) NSArray *menuTitles;
+@property(nonatomic, copy, nullable) NSArray<NSString *> *menuTitles;
 
 // This method could be overridden in subclasses to prepare some data source, The default is a nop.
 - (void)loadData;
@@ -33,3 +35,5 @@
 - (UIView *)contentViewForPage:(ZWSPage *)page atIndex:(NSInteger)index;
 
 @end
+
+NS_ASSUME_NONNULL_END

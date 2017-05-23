@@ -14,10 +14,12 @@
 #define __SetIfMoreThan(_a_, _b_) ((_a_) = MIN((_a_), (_b_)))
 #define __SetIfLessThan(_a_, _b_) ((_a_) = MAX((_a_), (_b_)))
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ZWSFlowMenu : UIScrollView
 
-@property(nonatomic, copy) NSArray *items;
-@property(nonatomic, strong) UIView *indicatorView;
+@property(nonatomic, copy, nullable) NSArray<UIView *> *items;
+@property(nonatomic, strong, nullable) UIView *indicatorView;
 @property(nonatomic, assign) NSInteger selectedIndex;
 @property(nonatomic, assign) UIEdgeInsets menuInsets;
 
@@ -48,3 +50,5 @@
 - (void)transformPercent:(float)progressPercent;
 
 @end
+
+NS_ASSUME_NONNULL_END

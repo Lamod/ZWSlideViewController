@@ -6,7 +6,7 @@
 
 @interface ZWSPage (Private)
 
-@property(nonatomic, assign) NSUInteger index;
+@property(nonatomic, assign) NSInteger index;
 
 @end
 
@@ -46,7 +46,7 @@
     }
 }
 
-- (NSUInteger)indexOfPage:(ZWSPage *)page {
+- (NSInteger)indexOfPage:(ZWSPage *)page {
     if (page.index < _numberOfPages) {
         return page.index;
     } else {
@@ -54,7 +54,7 @@
     }
 }
 
-- (NSUInteger)indexOfCenterPage {
+- (NSInteger)indexOfCenterPage {
     return [self indexOfPage:self.centerPage];
 }
 
@@ -63,7 +63,7 @@
         return nil;
     }
 
-    NSUInteger index = location.x / CGRectGetWidth(self.frame);
+    NSInteger index = location.x / CGRectGetWidth(self.frame);
     for (ZWSPage *page in self.visiblePages) {
         if (page.index == index) {
             return page;
@@ -144,7 +144,7 @@
 - (void)reloadPages {
     for (ZWSPage *page in _visiblePages) {
         page.hidden = YES;
-        page.index = NSUIntegerMax;
+        page.index = -1;
         [_recycledPages addObject:page];
 
         [_pagingDelegate pagingView:self didRemovePage:page];
@@ -171,7 +171,7 @@
 
 #pragma mark - scroll
 
-- (BOOL)isDisplayingPageOfIndex:(NSUInteger)index {
+- (BOOL)isDisplayingPageOfIndex:(NSInteger)index {
     for (ZWSPage *page in _visiblePages) {
         if (page.index == index)
             return YES;
@@ -182,13 +182,13 @@
 - (void)tilePages:(CGPoint)offset {
     CGFloat x = self.contentOffset.x;
 
-    NSUInteger lastNeededPageIndex, firstNeededPageIndex;  // = (NSUInteger)(x / self.width);
+    NSInteger lastNeededPageIndex, firstNeededPageIndex;  // = (NSInteger)(x / self.width);
     if (!_scrollInfinitelyEnabled && offset.x < .0) {
         firstNeededPageIndex = lastNeededPageIndex = 0;
     } else if (!_scrollInfinitelyEnabled && offset.x + CGRectGetWidth(self.frame) > self.contentSize.width) {
         firstNeededPageIndex = lastNeededPageIndex = _numberOfPages - 1;
     } else {
-        firstNeededPageIndex = (NSUInteger)(x / CGRectGetWidth(self.frame));
+        firstNeededPageIndex = (NSInteger)(x / CGRectGetWidth(self.frame));
 
         if (firstNeededPageIndex * CGRectGetWidth(self.frame) == x) {
             lastNeededPageIndex = firstNeededPageIndex;
@@ -217,7 +217,7 @@
             _centerPage = nil;
         }
 
-        page.index = NSUIntegerMax;
+        page.index = -1;
     }
 
     [_visiblePages minusSet:_recycledPages];
@@ -233,7 +233,7 @@
                    nil];
 
     for (NSNumber *number in indexes) {
-        NSUInteger i = number.unsignedIntegerValue;
+        NSInteger i = number.integerValue;
 
         if ([self isDisplayingPageOfIndex:i]) {
             continue;
@@ -248,9 +248,8 @@
         if (page.superview != self) {
             [self addSubview:page];
         }
-
+        
         [_visiblePages addObject:page];
-
         [_pagingDelegate pagingView:self willMoveToPage:page];
     }
 }
@@ -300,11 +299,11 @@
 
 @implementation ZWSPage
 
-- (void)setIndex:(NSUInteger)index {
+- (void)setIndex:(NSInteger)index {
     _index = index;
 }
 
-- (NSUInteger)index {
+- (NSInteger)index {
     return _index;
 }
 

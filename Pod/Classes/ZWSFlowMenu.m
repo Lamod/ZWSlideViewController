@@ -15,9 +15,9 @@
     CGPoint p1 = ZWStructWith(p, x, p.x - _menuInsets.right),
             p2 = ZWStructWith(p, x, p.x + _menuInsets.left);
 
-    NSUInteger index = NSUIntegerMax;
+    NSInteger index = -1;
     UIView *item = nil;
-    for (NSUInteger i = 0; i < _items.count; ++i) {
+    for (NSInteger i = 0; i < _items.count; ++i) {
         item = _items[i];
         if (CGRectContainsPoint(item.frame, p) || CGRectContainsPoint(item.frame, p1) ||
             CGRectContainsPoint(item.frame, p2)) {

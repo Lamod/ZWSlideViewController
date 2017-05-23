@@ -4,11 +4,13 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ZWSPage : UIView {
-    NSUInteger _index;
+    NSInteger _index;
 }
 
-@property(nonatomic, strong) UIView *contentView;
+@property(nonatomic, strong, nullable) UIView *contentView;
 
 @end
 
@@ -18,41 +20,41 @@
 @interface ZWSPagingView : UIScrollView<UIScrollViewDelegate> {
     BOOL _scrollInfinitelyEnabled;
 
-    NSUInteger _numberOfPages;
+    NSInteger _numberOfPages;
 
-    NSMutableSet *_visiblePages;
-    NSMutableSet *_recycledPages;
+    NSMutableSet<ZWSPage *> *_visiblePages;
+    NSMutableSet<ZWSPage *> *_recycledPages;
 
-    ZWSPage *_centerPage;
+    ZWSPage * _Nullable _centerPage;
 
-    __weak id<ZWSPagingViewDelegate> _pagingDelegate;
-    __weak id<ZWSPagingViewDataSource> _pagingDataSource;
+    __weak id<ZWSPagingViewDelegate> _Nullable _pagingDelegate;
+    __weak id<ZWSPagingViewDataSource> _Nullable _pagingDataSource;
 
-    __weak id _actualDelegate;
+    __weak id _Nullable _actualDelegate;
 }
 
 @property(nonatomic, assign) BOOL scrollInfinitelyEnabled;
 
-@property(nonatomic, weak) id<ZWSPagingViewDelegate> pagingDelegate;
-@property(nonatomic, weak) id<ZWSPagingViewDataSource> pagingDataSource;
+@property(nonatomic, weak, nullable) id<ZWSPagingViewDelegate> pagingDelegate;
+@property(nonatomic, weak, nullable) id<ZWSPagingViewDataSource> pagingDataSource;
 
-@property(nonatomic, readonly) ZWSPage *centerPage;
-@property(nonatomic, readonly) NSSet *visiblePages;
+@property(nonatomic, readonly, nullable) ZWSPage *centerPage;
+@property(nonatomic, readonly) NSSet<ZWSPage *> *visiblePages;
 
 // it will be pre-fetched content and cached for next page
 @property(nonatomic, getter=isPreload) BOOL preload;
 
-- (NSUInteger)indexOfPage:(ZWSPage *)page;
-- (NSUInteger)indexOfCenterPage;
+- (NSInteger)indexOfPage:(ZWSPage *)page;
+- (NSInteger)indexOfCenterPage;
 
-- (ZWSPage *)pageAtLocation:(CGPoint)location;
+- (ZWSPage * _Nullable)pageAtLocation:(CGPoint)location;
 
 - (CGFloat)widthInSight:(ZWSPage *)page;
 
 - (float)floatIndex;
 - (void)moveToPageAtFloatIndex:(float)index animated:(BOOL)animated;
 
-- (ZWSPage *)dequeueReusablePage;
+- (ZWSPage * _Nullable)dequeueReusablePage;
 - (void)reloadPages;
 
 @end
@@ -60,8 +62,8 @@
 @protocol ZWSPagingViewDataSource
 
 @required
-- (NSUInteger)numberOfPagesInPagingView:(ZWSPagingView *)pagingView;
-- (ZWSPage *)pagingView:(ZWSPagingView *)pagingView pageForIndex:(NSUInteger)index;
+- (NSInteger)numberOfPagesInPagingView:(ZWSPagingView *)pagingView;
+- (ZWSPage *)pagingView:(ZWSPagingView *)pagingView pageForIndex:(NSInteger)index;
 
 @end
 
@@ -73,3 +75,5 @@
 - (void)pagingViewLayoutChanged:(ZWSPagingView *)pagingView;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -54,7 +54,7 @@
 
 #pragma mark - ZWSPagingViewDataSource
 
-- (ZWSPage *)pagingView:(ZWSPagingView *)pagingView pageForIndex:(NSUInteger)index
+- (ZWSPage *)pagingView:(ZWSPagingView *)pagingView pageForIndex:(NSInteger)index
 {
     ZWSPage *page = [super pagingView:pagingView pageForIndex:index];
     return page;
