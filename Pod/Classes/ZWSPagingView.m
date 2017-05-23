@@ -245,12 +245,13 @@
         page.bounds = (CGRect){CGPointZero, self.bounds.size};
         page.center = CGPointMake((i + .5) * CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) / 2.0);
         page.hidden = NO;
-        if (page.superview != self) {
-            [self addSubview:page];
-        }
         
         [_visiblePages addObject:page];
         [_pagingDelegate pagingView:self willMoveToPage:page];
+        
+        if (page.superview != self) {
+            [self addSubview:page];
+        }
     }
 }
 
