@@ -80,28 +80,7 @@
 
 - (void)setTitles:(NSArray *)titles {
     _titles = titles;
-
-    NSMutableArray *items = [NSMutableArray arrayWithCapacity:titles.count];
-
-    if ([titles count] > 0) {
-        
-        for (NSString *s in titles) {
-            [items addObject:[self itemForTitle:s]];
-        }
-        
-        UIView *iv = [[UIView alloc] initWithFrame:CGRectMake(.0, .0, 2.0, 10.0)];
-        UIView *lv = [[UIView alloc] initWithFrame:CGRectMake(.0, iv.bounds.size.height - (self.indicatorHeight?:2), 2.0, self.indicatorHeight?:2)];
-        iv.userInteractionEnabled = NO;
-        lv.backgroundColor = self.indicatorColor?:self.highlightedTextColor;
-        lv.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-        [iv addSubview:lv];
-
-        self.items = items;
-        self.indicatorView = iv;
-    } else {
-        self.items = nil;
-        self.indicatorView = nil;
-    }
+    [self reloadItems];
 }
 
 - (void)setItemSize:(CGSize)itemSize {
@@ -113,6 +92,29 @@
 
     for (UIView *item in self.items) {
         [self resizeItem:item];
+    }
+}
+
+- (void)reloadItems {
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:_titles.count];
+    
+    if ([_titles count] > 0) {
+        for (NSString *s in _titles) {
+            [items addObject:[self itemForTitle:s]];
+        }
+        
+        UIView *iv = [[UIView alloc] initWithFrame:CGRectMake(.0, .0, 2.0, 10.0)];
+        UIView *lv = [[UIView alloc] initWithFrame:CGRectMake(.0, iv.bounds.size.height - (self.indicatorHeight?:2), 2.0, self.indicatorHeight?:2)];
+        iv.userInteractionEnabled = NO;
+        lv.backgroundColor = self.indicatorColor?:self.highlightedTextColor;
+        lv.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        [iv addSubview:lv];
+        
+        self.items = items;
+        self.indicatorView = iv;
+    } else {
+        self.items = nil;
+        self.indicatorView = nil;
     }
 }
 

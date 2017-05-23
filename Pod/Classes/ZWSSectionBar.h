@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, weak, nullable) id<ZWSSectionBarDelegate> barDelegate;
 
+- (void)reloadItems;
 - (nullable UIView *)itemForTitle:(NSString *)title;
 
 @end

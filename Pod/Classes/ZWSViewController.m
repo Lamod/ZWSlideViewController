@@ -11,6 +11,8 @@
 
 @implementation ZWSViewController
 
+@dynamic menuTitles;
+
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithCoder:coder];
@@ -67,6 +69,15 @@
     return _menuHeight;
 }
 
+- (NSArray<NSString *> *)menuTitles {
+    return _sectionBar.titles;
+}
+
+- (void)setMenuTitles:(NSArray<NSString *> *)menuTitles {
+    _sectionBar.titles = menuTitles;
+    [_pagingView reloadPages];
+}
+
 #pragma mark - Public methods
 
 - (void)loadData
@@ -82,8 +93,8 @@
     _pagingView.frame = CGRectMake(self.view.bounds.origin.x, self.sectionBar.frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.sectionBar.frame.size.height);
     [self.view insertSubview:_pagingView belowSubview:_sectionBar];
     
+    [_sectionBar reloadItems];
     [_pagingView reloadPages];
-    _sectionBar.titles = self.menuTitles;
 }
 
 #pragma mark - Override Methods
