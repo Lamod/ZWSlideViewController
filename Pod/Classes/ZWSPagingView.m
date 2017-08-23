@@ -273,7 +273,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    if (_numberOfPages == 0) {
+    if (_numberOfPages == 0 || self.bounds.size.width == 0) {
         return;
     }
 
